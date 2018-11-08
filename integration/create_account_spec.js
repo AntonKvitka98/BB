@@ -5,22 +5,20 @@ describe('Create account for assistant', () => {
   });
 
   it('Validation register form, valid e-mail' , () =>{
-    cy.visit('http://localhost:3000/register')
-
     cy.get('input[name = "email"]')
       .click();
     cy.get('input[name = "password"]')
       .click();
-    cy.get('div[class = "text-danger"]')
-      .should('contain', 'proszę podaj adres e-mail');
+    cy.get('div')
+      .should('contain', 'Pole e-mail nie może być puste');
     cy.get('input[name = "email"]')
       .clear()
       .type('example_assistant_busyboss.com')
       .should('have.value', 'example_assistant_busyboss.com');
     cy.get('input[name = "password"]')
       .click();
-    cy.get('div[class = "text-danger"]')
-      .should('contain', 'nieprawidłowy adres e-mail, adres e-mail powienien zawierać znak @');
+    cy.get('div')
+      .should('contain', 'Adres e-mail powienien zawierać znak @');
 
   });
 
@@ -30,26 +28,26 @@ describe('Create account for assistant', () => {
       .click()
     cy.get('input[name = "secondPassword"]')
       .click()
-    cy.get('div[class = "text-danger"]')
-      .should('contain', 'wymagane jest hasło');
+    cy.get('div')
+      .should('contain', 'Pole hasła nie może być puste');
     cy.get('input[name = "password"]')
       .click()
-    cy.get('div[class = "text-danger"]')
-      .should('contain', 'Wymagane jest potwierdzenie hasła');
+    cy.get('div')
+      .should('contain', 'Pole "Powtórz hasło" nie może być puste');
     cy.get('input[name = "password"]')
       .clear()
       .type("12345")
       .should('have.value', '12345');
     cy.get('input[name = "secondPassword"]')
       .click()
-    cy.get('div[class = "text-danger"]')
+    cy.get('div')
       .should('contain', 'Hasło powinno zawierać od 8 do 32');
     cy.get('input[name = "secondPassword"]')
       .clear()
       .type("123")
       .should('have.value', '123');
-    cy.get('div[class = "text-danger"]')
-      .should('contain', 'Hasło powinno być identyczne jak powyżej');
+    cy.get('div')
+      .should('contain', 'Podane hasła nie mogą różnić się od siebie');
 
     cy.get('input[name = "password"]')
       .clear()
@@ -65,11 +63,9 @@ describe('Create account for assistant', () => {
       .should('have.value', 'anton.kvitka@edge1s.com');
     cy.get('button[type = "submit"]')
       .click();
-    cy.get("div[class = 'text-danger']")
-       .should("not.be.visible");
-    cy.get('h5')
-      .parent('div[class = "text-danger"]')
-      .should('contain', 'Wprowadzony mail jest już zajęty');
+    cy.get('div')
+      .parent('div')
+      .should('contain', 'Email jest już zajęty');
     });
       /*
     it('Create account: not e-mail, incorret email', () =>{
@@ -209,4 +205,3 @@ describe('Create account for boss', () => {
   });
 */
 });
-
