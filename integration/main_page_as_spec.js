@@ -5,7 +5,7 @@ describe('Login in account', () => {
   });
 
 
-  it('Validation register form, valid e-mail' , () =>{
+  it('Validation' , () =>{
     cy.get('h6')
       .should('have.text', 'Wyszukaj użytkownika')
   });
