@@ -54,7 +54,7 @@ describe('Login in account', () => {
       .click();
     cy.get('div')
       .parent('div')
-      .should('contain', 'Błędne dane logowania');
+      .should('contain', 'Konto nie zostało aktywowane');
     cy.get('input[name = "password"]')
       .clear()
       .type("qwerty123")
@@ -63,7 +63,7 @@ describe('Login in account', () => {
       .click();
     cy.get('div')
       .find('div')
-      .should('contain', 'Konto nie zostało aktywowane');
+      .should('contain', 'Błędne dane logowania');
     });
 
 
