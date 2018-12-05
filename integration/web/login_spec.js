@@ -1,13 +1,17 @@
 describe('Login in account', () => {
 
   beforeEach(() =>{
+    cy.viewport(2000, 1000);
     cy.visit('http://localhost:3000/login');
   });
 
 
   it('Validation login form, valid e-mail' , () =>{
-    cy.get('h2')
-      .should('have.text', 'Logowanie');
+    cy.url().should('include', '/login');
+    cy.contains('It is easy');
+    cy.contains('to be busy');
+    cy.get('form > div > div > img')
+      .should('be.visible');
     cy.get('input[name = "email"]')
       .click();
     cy.get('input[name = "password"]')
@@ -67,6 +71,36 @@ describe('Login in account', () => {
     });
 
 
+  it('Correct sign-in in account', () =>{
+    cy.get('input[name = "email"]')
+      .clear()
+      .type('piotr@busyboss.lh')
+    cy.get('input[name = "password"]')
+      .clear()
+      .type("12345678")
+    cy.get('button[type = "submit"]')
+      .click();
+    cy.hash()
+      .should('eq', '');
+  });
+
+
+  it('Correct sign-out of account', () =>{
+    cy.login_assistant_not_connect_account();
+    cy.url().should('include', 'http://localhost:3000/');
+    cy.get('ul > li')
+      .should('have.length', 9)
+      .should('be.visible');
+    cy.get('img[alt="Wyloguj"]')
+      .should('be.visible')
+      .parent()
+      .contains('Wyloguj')
+      .click();
+    cy.url().should('include', '/login')
+    cy.contains('It is easy');
+    cy.contains('to be busy');
+  });
+  });
 /*describe('Login in account for assistant', () => {
   it('Login account: not password, incorrect password', () =>{
     cy.visit('http://localhost:3000/login')
@@ -177,4 +211,4 @@ describe('Login account for boss', () => {
       .should('have.value', 'qwerty123');
     cy.get('button[type = "submit"]').click();
   });*/
-});
+//});

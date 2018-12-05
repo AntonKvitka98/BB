@@ -1,6 +1,7 @@
 describe('Login in account', () => {
 
   beforeEach(() =>{
+    cy.viewport(2000, 1000);
     cy.login();
   });
 

@@ -1,6 +1,7 @@
 describe('Create account for assistant', () => {
 
   beforeEach(() =>{
+    cy.viewport(2000, 1000);
     cy.visit('http://localhost:3000/register');
   });
 
